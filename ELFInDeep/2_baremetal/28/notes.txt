@@ -1,0 +1,16 @@
+Startup Code
+===============
+
+Linker script has to be updated for the following:
+
+	a. .bss section placement
+	b. vectors section placement
+	c. .rodata section placement
+
+The .bss is placed right after .data section in RAM. 
+
+ Symbols to locate the start of .bss and end of .bss are also created in the linker script.
+
+The .rodata is placed right after .text section in Flash. 
+
+Refer picture: csections.png

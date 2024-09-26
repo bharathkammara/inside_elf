@@ -1,0 +1,21 @@
+Linker
+----------
+
+When writing a multi-file program, each file is assembled individually into object files.
+
+The linker combines these object files to form the final executable.
+
+
+a.s --> Assembler --> a.o
+b.s --> Assembler --> b.o
+c.s --> Assembler --> c.o
+
+a.o
+b.o --->Linker  --> abc
+c.o
+
+When combining the object files together, the linker performs the following operations.
+
+1. Symbol Resolution
+2. Relocation
+

@@ -1,0 +1,21 @@
+Linker Script Example
+===========================
+
+To demonstrate the use of linker script, we will use a slightly modified version of the sum of array program for this purpose.
+
+The only change here is that the array is now in the .data section
+
+Also note that the nasty branch instruction to skip over the data is also not required, since the linker script will place the .text section and .data section appropriately
+
+$ arm-none-eabi-as -o sum-data.o sum-data.s
+$ arm-none-eabi-ld -T sum-data.lds -o sum-data.elf sum-data.o
+
+The option -T sum-data.lds specifies that sum-data.lds is to be used as the linker script.
+
+ Dumping the symbol table, will provide an insight into how the sections are placed in memory.
+
+
+$ arm-none-eabi-nm -n sum-data.elf
+
+From the symbol table it is obvious that the .text is placed starting from address 0x0 and .data section is placed starting from address 0x400.
+

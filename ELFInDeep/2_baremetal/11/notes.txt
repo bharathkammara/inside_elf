@@ -1,0 +1,14 @@
+Using RAM
+===========
+
+The flash memory, in which the previous example program were stored is a kind of EEPROM.
+
+It is a useful secondary storage, like a hard disk, but is not convenient to store variables in Flash.
+
+The variables should be stored in RAM, so that they can be easily modified.
+
+The connex board has a 64MB of RAM starting at address 0xA000 0000 in which variables can be stored.
+
+Necessary setup has to be done to place the variables at this address.
+
+To understand what has to be done, the role of assembler and linker has to be understood

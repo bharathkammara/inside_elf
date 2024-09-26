@@ -1,0 +1,7 @@
+$ gcc userspace.c -o userspace
+$readelf -h userspace
+$objdump -D userspace | grep unused
+$printf "\x49\x11" | dd conv=notrunc of=userspace bs=1 seek=24 count=2
+$readelf -h userspace
+$./userspace 
+

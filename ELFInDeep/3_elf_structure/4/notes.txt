@@ -1,0 +1,72 @@
+ELF Header
+============
+
+Type
+---------
+
+The type field tells us what the purpose of the file is. There are a few common file types.
+
+	CORE (value 4)
+	DYN (Shared object file), for libraries (value 3)
+	EXEC (Executable file), for binaries (value 2)
+	REL (Relocatable file), before linked into an executable file (value 1)
+
+
+e_machine
+----------
+
+Specifies the architecture for which the ELF is compiled
+
+e_version
+-----------
+
+Provides information about the version of the ELF object file
+
+e_entry
+---------
+
+This is the entry point or the start address of the program
+
+e_phoff
+---------
+
+This member provides offset from the ELF header at which the program header is present
+
+e_shoff
+-----------
+
+This member provides offset from the ELF header at which the section header is present
+
+e_flags
+---------
+
+This member holds processor specific tags
+
+e_ehsize
+-----------
+
+This member holds the ELF Header size in bytes
+
+e_phentsize
+--------------
+
+This member holds the size in bytes of one entry in the file’s program header table.
+
+e_phnum
+-----------
+
+This member holds the number of entries in the program header table.
+
+e_shentsize
+--------------
+
+This member holds a section header’s size in bytes.
+
+e_shnum
+---------
+
+This member holds the number of entries in the section header table
+
+
+
+

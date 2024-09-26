@@ -1,0 +1,26 @@
+ To compile the code, it is not necessary to invoke the assembler, compiler and linker individually. gcc is intelligent enough to do that for us.
+
+  arm-none-eabi-gcc -nostdlib -o csum.elf -T c-linker.lds sum.c startup.s 
+
+The -nostdlib option is used to specify that the standard C library should not be linked in. A little extra care has to be taken when the C library is linked in. 
+
+
+  arm-none-eabi-objcopy -O binary csum.elf csum.bin
+
+arm-none-eabi-nm -n csum.elf
+
+
+The assembly code is placed right after the 8 exception vectors (8 * 4 = 32 = 0x20).
+The read-only data n, is placed in Flash after the code.
+The initialized data arr, an array of 6 integers, is placed at the start of RAM 0xA0000000.
+The uninitialized data sum is placed after the array of 6 integers. (6 * 4 = 24 = 0x18)
+
+
+
+  dd if=/dev/zero of=flash.bin bs=4096 count=4096
+  dd if=csum.bin of=flash.bin bs=4096 conv=notrunc
+  qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null
+
+
+(qemu) xp /6dw 0xa0000000
+(qemu) xp /1dw 0xa0000018

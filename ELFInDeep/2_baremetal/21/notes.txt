@@ -1,0 +1,34 @@
+Specifying Load Address
+==========================
+
+The run-time address is what that should be used for determining the address of labels.
+
+In the previous linker script, we have specified the run-time address for the .data section
+
+The load address is not explicitly specified, and defaults to the run-time address. 
+
+This is OK, with the previous examples, since the programs were executed directly from Flash
+
+But, if data is to be placed in RAM during execution, the load address should correspond to Flash and the run-time address should correspond to RAM.
+
+A load address different from the run-time address can be specified using the AT keyword. The modified linker script is shown below.
+
+
+SECTIONS {
+        . = 0x00000000;
+        .text : { * (.text); }
+        etext = .; ❶
+
+        . = 0xA0000000;
+        .data : AT (etext) { * (.data); } ❷
+}
+
+❶  Symbols can be created on the fly within the SECTIONS command by assigning values to them.
+   Here etext is assigned the value of the location counter at that position. 
+   etext contains the address of the next free location in Flash right after all the code.
+   Note that etext itself will not be allocated any memory, it is just an entry in the symbol table.
+
+❷  The AT keyword specifies the load address of the .data section
+   An address or symbol (whose value is a valid address) could be passed as argument to AT.
+    Here the load address of .data is specified as the location right after all the code in Flash.
+

@@ -1,0 +1,23 @@
+gdb
+-------
+The ‘start’ command does the equivalent of setting a temporary breakpoint at the beginning of the main procedure and then invoking the ‘run’ command.
+
+The ‘starti’ command does the equivalent of setting a temporary breakpoint at the first instruction of a program’s execution and then invoking the ‘run’ command.
+
+Other option
+The info files prints information about debugging targets and memory spaces occupied by different sections
+
+(gdb) info files
+    ...
+    Entry point: 0x80000000
+    ...
+(gdb) break *0x80000000
+(gdb) run
+
+
+set backtrace past-main on
+---------------------------
+
+Normally the caller of "main" is not of interest, so GDB will terminate the backtrace at "main"
+
+Set this variable if you need to see the rest of the stack trace.

@@ -1,0 +1,15 @@
+addr2line
+-------------
+
+Converts addresses into file names and line numbers
+
+The addr2line tool simply looks up addresses in the binary file and matches them up with lines in the C source code program. Pretty cool, isn't it?
+
+
+Use objdump to identify memory addresses where your functions begin. You can use the grep command to filter out specific lines that you want. The addresses for your functions are highlighted below:
+
+$ objdump -d userspace | grep -A 2 -E 'main>:|function1>:|function2>:'
+
+Now use the addr2line tool to map these addresses from the binary to match those of the C source code:
+
+$ addr2line -e userspace <address>

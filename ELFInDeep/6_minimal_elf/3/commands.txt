@@ -1,0 +1,7 @@
+ gcc --static userspace.c -o userspace
+  file ./userspace
+  readelf -h userspace
+
+Type and ABI Changes
+
+Run app multiple times and check maps file

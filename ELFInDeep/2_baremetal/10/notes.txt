@@ -1,0 +1,47 @@
+String Length
+--------------
+
+Assembly Code calculates the length of string and stores the length in register r1
+
+The code introduces two new assembler directives - .asciz and .equ
+
+.asciz directive
+-----------------
+
+The .asciz directive accepts string literals as arguments.
+
+String literal are a sequence characters in double quotes
+
+The string literals are assembled into consecutive memory locations.
+
+The assembler automatically inserts a nul character (\0 character) after each string.
+
+The .ascii directive is same as .asciz, but the assembler does not insert a nul character after each string.
+
+.equ directive
+----------------
+
+The assembler maintains something called a symbol table. 
+
+The symbol table maps label names to addresses.
+
+Whenever the assembler encounters a label definition, the assembler makes an entry in the symbol table. 
+
+And whenever the assembler encounters a label reference, it replaces the label by the corresponding address from the symbol table.
+
+Using the assembler directive .equ, it is also possible to manually insert entries in the symbol table, to map names to values, which are not necessarily addresses.
+
+Whenever the assembler encounters these names, it replaces them by their corresponding values.
+
+These names and label names are together called symbol names.
+
+The general syntax of the directive is given below.
+
+.equ name, expression
+
+The name is a symbol name, and has the same restrictions as that of the label name. 
+
+The expression could be simple literal, or an expression as explained for the .byte directive.
+
+Note:
+Unlike the .byte directive, the .equ directive itself does not allocate any memory. They just create entries in the symbol table.

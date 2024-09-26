@@ -1,0 +1,77 @@
+Section Header Table
+----------------------
+
+Each section is described by its section header
+
+The section header table is a series of entries containing information about sections.
+
+Each section has a 
+	name
+		Standard names usually start with a dot by convention
+	type
+	flags
+		Specify how it's intended to be used and decoded
+	size
+		Size of the section
+	offset
+		Offset in the ELF file
+
+Section headers table defines all the sections in the file and is used for linking and relocation.
+
+Note: It’s important to highlight that section headers are needed on link-time but they are not needed on runtime.
+
+The location of the section header in an ELF file is provided by the e_shoff variable, which is present in the ELF header.
+
+e_shoff provides the offset at which the ELF section header is present in the ELF file.
+
+e_shnum is the number of section header entries in the ELF file and the size of each entry is e_shentsize.
+
+Section headers table is an array of structures Elf64_Shdr (and Elf32_Shdr for i386 ABI), there is an array entry for each section.
+
+/* Section header.  */
+typedef struct
+{
+  Elf32_Word    sh_name;        /* Section name (string tbl index)      */
+  Elf32_Word    sh_type;        /* Section type                         */
+  Elf32_Word    sh_flags;       /* Section flags                        */
+  Elf32_Addr    sh_addr;        /* Section virtual addr at execution    */
+  Elf32_Off     sh_offset;      /* Section file offset                  */
+  Elf32_Word    sh_size;        /* Section size in bytes                */
+  Elf32_Word    sh_link;        /* Link to another section              */
+  Elf32_Word    sh_info;        /* Additional section information       */
+  Elf32_Word    sh_addralign;   /* Section alignment                    */
+  Elf32_Word    sh_entsize;     /* Entry size if section holds table    */
+} Elf32_Shdr;
+
+typedef struct
+{
+  Elf64_Word    sh_name;        /* Section name (string tbl index)      */
+  Elf64_Word    sh_type;        /* Section type                         */
+  Elf64_Xword   sh_flags;       /* Section flags                        */
+  Elf64_Addr    sh_addr;        /* Section virtual addr at execution    */
+  Elf64_Off     sh_offset;      /* Section file offset                  */
+  Elf64_Xword   sh_size;        /* Section size in bytes                */
+  Elf64_Word    sh_link;        /* Link to another section              */
+  Elf64_Word    sh_info;        /* Additional section information       */
+  Elf64_Xword   sh_addralign;   /* Section alignment                    */
+  Elf64_Xword   sh_entsize;     /* Entry size if section holds table    */
+} Elf64_Shdr
+
+Section Types
+----------------
+sh_name		: It stores an index. 
+		  The index acts as an offset into the .shstrtab (Section Header String Table) section which stores the section names (ASCII encoded).
+
+sh_type		: Determines the section's contents
+	SHT_PROGBITS	:   Holds information defined by the program. Information is defined solely by the program	  SHT_NOBITS	  :   Used by bss which means section occupies no space in file (on disk)
+	SHT_RELA/SHT_REL:   Relocation Information is stored 
+	
+sh_addr		: The section’s first byte will appear on this address if the section gets loaded into memory
+
+sh_offset	: This field stores the offset at which first byte of the section starts in file (on disk).
+
+sh_size		: Size of section (on disk size)
+
+sh_link		: Section header table index link (check .symtab/.dynstr)
+
+

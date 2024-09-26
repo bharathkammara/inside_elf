@@ -1,0 +1,42 @@
+nm
+-------
+
+nm - List symbols from object files
+
+$ nm <elf>
+
+$ nm -D <elf>
+
+What is a symbol?
+-----------------
+
+Symbols as the name suggests, are symbolic references to some data or code, such as global variable or function.
+
+A  developer uses “names” to refer functions and variables throughout a program, these informations are known as the program’s symbolic information.
+
+But the computer doesn’t care about “names”, our machine has a an “address & offset ”
+
+A single ELF file contains a maximum of two symbol tables:
+	.symtab
+	.dynsym
+
+Along with .symtab, you’ll find .strtab, the string table of .symtab, which stores null-terminated strings used to reference objects from different sections.
+
+.symtab is the binary global’s symbol table, containing all the symbol references in the current ELF file
+
+.dynsym holds symbols needed for dynamic linking.
+
+	When we develop a program, sometimes we want to use symbols that don’t reside within the context of our program, but are instead defined in external object such as libraries.
+
+	 Like .symtab/.strtab relationship, .dynsym got its own string table, referred .dynstr
+
+Well, if you pay attention to the “Flg” field (Flag), you ‘ll see that .symtab has no flags, but .dynsym is marked as A (for ALLOC).
+
+That ALLOC means that .dynsym will be allocated at runtime and loaded in memory, but .symtab is not loaded into memory because it is useless for runtime.
+
+.dynsym contains what is necessary for execution, whereas .symtab exists only for debugging and linking purposes — and is often “stripped” (removed) from the binaries to save space.
+
+Dump Strings from .strtab section
+---------------------------------
+$ readelf -p .strtab userspace
+$ readelf -p .dynstr userspace

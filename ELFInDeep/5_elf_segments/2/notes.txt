@@ -1,0 +1,59 @@
+ELF Program Header
+-------------------
+
+The program header in the ELF specifies which section of the ELF file goes to a particular memory location.
+
+Variables related to Program headers in ELF Header
+-------------------------------------------------
+e_phoff:  Provides program header location in ELF file
+e_phnum:  Number of program header entries in ELF file
+e_phentsize: Size of each entry
+
+typedef struct
+{
+  Elf32_Word        p_type;                 /* Segment type             */
+  Elf32_Off         p_offset;               /* Segment file offset      */
+  Elf32_Addr        p_vaddr;                /* Segment virtual address  */
+  Elf32_Addr        p_paddr;                /* Segment physical address */
+  Elf32_Word        p_filesz;               /* Segment size in file     */
+  Elf32_Word        p_memsz;                /* Segment size in memory   */
+  Elf32_Word        p_flags;                /* Segment flags            */
+  Elf32_Word        p_align;                /* Segment alignment        */
+} Elf32_Phdr;
+
+typedef struct
+{
+  Elf64_Word        p_type;                 /* Segment type             */
+  Elf64_Word        p_flags;                /* Segment flags            */
+  Elf64_Off         p_offset;               /* Segment file offset      */
+  Elf64_Addr        p_vaddr;                /* Segment virtual address  */
+  Elf64_Addr        p_paddr;                /* Segment physical address */
+  Elf64_Xword       p_filesz;               /* Segment size in file     */
+  Elf64_Xword       p_memsz;                /* Segment size in memory   */
+  Elf64_Xword       p_align;                /* Segment alignment        */
+} Elf64_Phdr;
+
+
+p_type: Segment Type
+        PHDR  Indicates the beginning of the program header
+	PT_LOAD mean its contains data that should be loaded into memory
+	PT_INTERP: Indicates the program path that will be involved as the interpreter of the ELF
+	PT_NOTE means the segment contains informational text that shouldn't necessarily be loaded anywhere
+
+p_flags: specifies what operations should be permitted if it's loaded into memory
+	 PF_R makes it readable
+         PF_W makes it writable and
+	 PF_X means it's code that should be allowed to execute on the CPU
+
+p_offset: specifies information about where its data is in the file
+
+p_vaddr : specify what virtual memory address the data should be loaded into memory at
+	  This is typically left blank if the segment isn't meant to be loaded into memory
+
+p_filesz : length of the data in the file
+
+p_memsz   : length of the memory region to be created
+  
+     If the memory region length is longer than length in the file, the extra memory will be filled with zeroes. 
+     These empty segments of memory are typically called BSS segment
+	   

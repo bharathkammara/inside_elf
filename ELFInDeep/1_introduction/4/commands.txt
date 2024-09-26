@@ -1,0 +1,30 @@
+Changing one character in ELF File
+----------------------------------
+
+$ make userspace
+
+$ ./userspace
+
+$ vi ./userspace
+
+$ xxd -g 1 ./userspace | head -5
+
+Convert to plain output, we can save hexdump to a file
+$ xxd -p userspace | head -5
+
+$ xxd -p userspace > hexdump.plain
+
+$ file ./hexdump.plain
+
+Change content 
+$ vi ./hexdump.plain
+
+Convert modified hexdump back to binary format. xxd has reverse mode
+
+$ xxd -p -r hexdump.plain > hexdump.elf
+
+$ file ./hexdump.elf
+
+$ chmod +x hexdump.elf
+
+$ ./hexdump.elf

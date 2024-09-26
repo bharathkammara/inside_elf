@@ -1,0 +1,8 @@
+dumpelf
+------------
+
+dumpelf is a user-space utility to dump all of the internal ELF structures into the equivalent C structures for fun debugging and/or reference purposes.
+
+$ sudo apt install pax-utils
+
+$ dumpelf <elf>

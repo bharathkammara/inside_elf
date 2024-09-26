@@ -1,0 +1,17 @@
+size
+---------
+
+size command list section sizes and total size
+
+The size command works only on object and executable files, so if you try running it on a simple ASCII file, it will throw an error saying File format not recognized.
+
+# echo "test" > file1
+# file file1
+# size file1
+
+# size /bin/ls
+# size /bin/gcc
+# size /bin/gdb
+
+# size userspace.o
+# size userspace

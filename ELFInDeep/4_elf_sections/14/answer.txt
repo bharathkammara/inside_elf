@@ -1,0 +1,6 @@
+$ echo "This is my information" > info.txt
+$ readelf --sections userspace
+$ objcopy --add-section .newsection=info.txt --set-section-flags .newsection=noload,readonly userspace userspace1
+$ objdump -sj .newsection userspace1
+$ readelf --sections userspace1
+

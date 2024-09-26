@@ -1,0 +1,2 @@
+What is the format when we cross compile C code for ARM?
+---------------------------------------------------------

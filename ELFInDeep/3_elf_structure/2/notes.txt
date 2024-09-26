@@ -1,0 +1,46 @@
+ELF Header
+-------------
+
+Every ELF file has an ELF header.
+
+It has the very important job of conveying basic information about the binary such as:
+
+	-> What processor's it's designed to run on. ELF Files can contain machine code for different processor types like ARM and X86
+
+	-> Whether binary is meant to be run on its own as an executable, or whether it's meant to be loaded by other programs as a "dynamically linked library"
+
+	-> The entry point of the executable. The entry point is a memory address pointing to where the first machine code instructions is in memory after the entire process has been loaded
+
+The ELF header is always at the start of the file. 
+
+It specifies the locations of the program header table and section header, which can be anywhere within the file.
+
+Those tables, in turn, point to data stored elsewhere in the file.
+
+
+
+How to view the ELF Header
+----------------------------
+
+The binutils provides a program called readelf which gives more detailed information about elf file
+
+readelf using the -h (header) option to dump the files' ELF header on your screen. 
+
+$ readelf -h /bin/ls
+
+$ ldd /bin/ls
+
+$ readelf -h /lib64/libc.so.6
+
+$ readelf -h userspace.o
+
+$ readelf -h userspace
+
+$ hexdump -C userspace | head -n 1
+
+$ hd -n 64 userspace
+
+$ file userspace
+
+$ xxd -l4 <elf file>
+

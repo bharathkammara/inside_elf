@@ -1,0 +1,7 @@
+Check the /proc/pid/maps
+
+Kill the process 
+
+Check the /proc/pid/maps
+
+ASLR

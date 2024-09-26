@@ -1,0 +1,45 @@
+Linker Script File
+--------------------
+
+As we know linker performs section merging and section placement.
+
+The programmer can control how the sections are merged and at what locations they are placed in memory through a linker script file. 
+
+Simple Linker Script file
+-------------------------
+
+SECTIONS { ❶
+        . = 0x00000000; ❷
+        .text : { ❸
+                abc.o (.text);
+                def.o (.text);
+        } ❹
+}
+
+
+❶  The SECTIONS commands is the most important linker command, it specifies how the sections are to be merged and at what location they are to be placed
+
+❷  Within the block following the SECTIONS command, the . (period) represents the location counter. The location is always initialized to 0x0. It can be modified by assigning a new value to it
+
+❸ ❹ 	This part of the script specifies that, the .text section from the input files abc.o and def.o should go to the .text section of the output file.
+
+The linker script can be further simplified and generalised by using the wild card character * instead of individually specifying the file names
+
+SECTIONS {
+        . = 0x00000000;
+        .text : { * (.text); }
+}
+
+If the program contains both .text and .data sections, the .data section merging and location can be specified as shown below.
+
+SECTIONS {
+         . = 0x00000000;
+         .text : { * (.text); }
+
+         . = 0x00000400;
+         .data : { * (.data); }
+}
+
+Here, the .text section is located at 0x0 and .data is located at 0x400. 
+
+Note that, if the location counter is not assigned a different value, the .text and .data sections will be located at adjacent memory locations.

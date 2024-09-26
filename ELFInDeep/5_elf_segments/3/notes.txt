@@ -1,0 +1,34 @@
+Section View (Section Header) vs Segment View (Program Header)
+---------------------------------------------------------------
+
+A program is seen as a collection of segments by the loader and as a collection of sections by the compiler/linker
+
+The program header table provides a segment view of the binary
+
+	Segment view is used during loading the ELF in memory to create process layout
+
+The Section header tables provides a section view of the binary
+
+	The section view of an ELF binary is used during  linking
+
+Program headers are essential when running the executable because they tell the operating system all it needs to know to put the executable into memory and run it
+
+How kernel loads a process
+--------------------------
+
+1. To run a program, kernel loads ELF Header and program header table into memory
+
+2. It then loads the contents that are specified in LOAD in the program header table into memory, and it also checks if the interpreter is needed
+
+3. Finally control is given to the executable or the interpreter if it's available
+
+
+In the Linux Kernel, ELF Binaries are handled by the binfmt_elf handler, which is more complex than many other handlers and contains thousands of lines of code.
+
+It's responsible for parsing out certain details from the ELF file and using them to load the process into memory and execute it
+
+fs/binfmt_elf.c : LOGIC for loading ELF Binary
+
+function: load_elf_binary
+
+Practical: Change PT_LOAD to PT_NULL and check what happens

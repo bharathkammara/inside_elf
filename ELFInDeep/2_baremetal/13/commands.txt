@@ -1,0 +1,5 @@
+ arm-none-eabi-as -o main.o main.s
+ arm-none-eabi-as -o sum-sub.o sum-sub.s 
+ arm-none-eabi-nm main.o
+ arm-none-eabi-nm sum-sub.o
+

@@ -1,0 +1,23 @@
+Building Linux Executables/Libraries
+--------------------------------------
+
+1. Normal Dynamically Linked Executable:
+
+	$ gcc -o <output> <source_files>
+
+2. Normal Statically Linked Executable:
+
+	$ gcc -static -o <output> <source_files>
+
+3. Shared Object/Library
+
+	$ gcc -fPIC -c -o <name>.o <name>.c
+	$ ld -shared -soname lib<name>.so.1 -o lib<name>.so.1.0 -lc lib<name>.o
+
+4 Generating a core dump
+
+	ulimit -c unlimited
+        cat /proc/sys/kernel/core_pattern 
+ 	sudo sh -c 'echo core > /proc/sys/kernel/core_pattern'
+ 	cat /proc/sys/kernel/core_pattern 
+

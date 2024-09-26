@@ -1,0 +1,113 @@
+ELF Header
+------------------
+
+The ELF header is described by the type Elf32_Ehdr or Elf64_Ehdr, it information about the binary.
+
+From /usr/include/elf.h
+
+/* The ELF file header.  This appears at the start of every ELF file.  */
+#define EI_NIDENT (16)
+typedef struct
+{
+  unsigned char  e_ident[EI_NIDENT];  /* Magic number and other info    */
+  Elf32_Half     e_type;             /* Object file type                */
+  Elf32_Half     e_machine;         /* Architecture                     */
+  Elf32_Word     e_version;         /* Object file version              */
+  Elf32_Addr     e_entry;           /* Entry point virtual address      */
+  Elf32_Off      e_phoff;           /* Program header table file offset */
+  Elf32_Off      e_shoff;           /* Section header table file offset */
+  Elf32_Word     e_flags;           /* Processor-specific flags         */
+  Elf32_Half     e_ehsize;          /* ELF header size in bytes         */
+  Elf32_Half     e_phentsize;       /* Program header table entry size  */
+  Elf32_Half     e_phnum;           /* Program header table entry count */
+  Elf32_Half     e_shentsize;       /* Section header table entry size  */
+  Elf32_Half     e_shnum;           /* Section header table entry count */
+  Elf32_Half     e_shstrndx;        /* Section header string table index*/
+} Elf32_Ehdr;
+
+typedef struct
+{
+  unsigned char   e_ident[EI_NIDENT];  /* Magic number and other info   */
+  Elf64_Half      e_type;             /* Object file type               */
+  Elf64_Half      e_machine;        /* Architecture                     */
+  Elf64_Word      e_version;        /* Object file version              */
+  Elf64_Addr      e_entry;          /* Entry point virtual address      */
+  Elf64_Off       e_phoff;          /* Program header table file offset */
+  Elf64_Off       e_shoff;          /* Section header table file offset */
+  Elf64_Word      e_flags;          /* Processor-specific flags         */
+  Elf64_Half      e_ehsize;         /* ELF header size in bytes         */
+  Elf64_Half      e_phentsize;      /* Program header table entry size  */
+  Elf64_Half      e_phnum;          /* Program header table entry count */
+  Elf64_Half      e_shentsize;      /* Section header table entry size  */
+  Elf64_Half      e_shnum;          /* Section header table entry count */
+  Elf64_Half      e_shstrndx;       /* Section header string table index*/
+} Elf64_Ehdr;
+
+e_ident
+-----------
+e_ident[EI_NIDENT] is a 16 bytes array that contains identification flags about the file, these flags are used to interpret and decode the file Flags:
+
+EI_MAG0-3 : ELF magic number
+EI_CLASS : File class.
+EI_DATA : File’s data encoding.
+EI_VERSION : File’s version.
+EI_OSABI : OS/ABI identification.
+EI_ABIVERSION: ABI version
+EI_PAD : Start of padding bytes.
+EI_NIDENT : Size of ei_ident.
+
+Magic
+----------
+The first 4 hexadecimal parts define that this is an ELF file (45=E,4c=L,46=F), prefixed with the 7f value.
+
+Class
+--------
+After the ELF type declaration, there is a Class field defined. 
+
+This value determines the architecture for the file.
+
+It can a 32-bit (=01) or 64-bit (=02) architecture. 
+
+
+Data
+--------
+
+It knows two options
+
+	 01 for LSB (Least Significant Bit) also known as little-endian
+		Dec 500 = 0x01f4 32 bit => f4 01 00 00
+	 02 for MSB (Most Significant Bit) also known as big-endian
+		Dec 500 = 0x01f4 32 bit => 00 00 01 f4
+This is important, as different types of processors deal differently with the incoming instructions and data structures
+For AMD64 procesors it's LSB/Little Endian
+
+Version
+---------
+
+Next in line is another “01” in the magic, which is the version number. 
+
+Currently, there is only 1 version type: currently, which is the value “01”. So nothing interesting to remember.
+
+OS/ABI
+-----------
+
+Identifies the OS- or ABI-specific ELF extensions used by this file.
+
+Some fields in other ELF structures have flags and values that have operating system and/or ABI specific meanings
+
+The interpretation of those fields is determined by the value of this byte.
+
+If the object file does not use any extensions, it is recommended that this byte be set to 0
+
+ABI Version
+---------------
+
+When needed, a version for the ABI can be specified.
+
+Padding
+----------
+
+Remaining bytes are reserved and set to zero; programs that read object files should ignore them
+
+	 
+

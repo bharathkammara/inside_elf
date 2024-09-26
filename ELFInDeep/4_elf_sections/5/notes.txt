@@ -1,0 +1,10 @@
+Debugging sections
+-------------------
+Compile option with -g and check how many new sections are added
+
+
+DWARF is a standardized format for representing debug information (i.e., symbol names, struct layouts, how to recover backtraces etc).
+
+DWARF is an acronym for "Debugging With Arbitrary Record Formats"
+
+When a program is compiled with debug information (with the -g flag), this information will be written into special .debug_ ELF sections 

@@ -1,0 +1,35 @@
+Relocation
+-------------
+
+Relocation is the process of changing addresses already assigned to labels. 
+
+This will aslo involve patching up all label references to relect the newly assigned address.
+
+Primarily relocation is performed for the following two reasons:
+
+	1. Section Merging
+	2. Section Placement
+
+To understand the process of relocation, an understanding of the concept of sections is essential.
+
+For example, code can be placed in read-only memory, and data might required read-write memory
+
+It would be convenient, if code and data is not mixed.
+
+For this purpose, programs are divided into sections.
+
+Most programs have at least two sections:
+
+	.text for code
+	.data for data
+
+ Assembler directives .text and .data, are used to switch back and forth between the two sections.
+
+It helps to imagine each section as a bucket. 
+
+When the assembler hits a section directive, it puts the code/data following the directive in the selected bucket
+
+Thus the code/data that belong to particular section appear in contiguous locations. 
+
+Refer to section.png
+

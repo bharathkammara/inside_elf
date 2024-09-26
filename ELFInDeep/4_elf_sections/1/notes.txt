@@ -1,0 +1,81 @@
+Introduction to Section and Segments
+-------------------------------------
+
+ELF Files are used by two tools:
+
+	Linker
+		Combines multiple ELF files into an executable or library
+	Loader
+		Loader loads the executable ELF  file in the memory of the process
+		loading may require relocation (e.g., if the file is dynamically linked it has to be linked again with all the shared libraries it depends on).
+
+Linker and loader need two different views of the ELF file, i.e., they access it differently.
+
+Linker
+	needs to know where text, data, bss and other sections are 
+	merge them with sections from other libraries
+	If relocation is required the linker needs to know where the symbol tables and relocation information is
+
+Loader
+	does not need any of the above details
+	It simply needs to know which parts of the ELF file are code (executable)
+	which are data and read-only data, and where to put the BSS in the memory of a process.
+
+To provide these views each ELF file contains two tables (or arrays):
+
+Section Header Table With pointers to sections to be used by the linker.
+Program Header Table With pointers to segments to be used by the loader.
+
+Both tables are simply arrays of entries that contain information about each part of the ELF file (e.g., where the sections/segments used by the linker/loader are inside the ELF file).
+
+   ┌───────────────────────────┐
+   │                           │
+   │      File Header          │
+   │                           │
+   │                           │
+   ├───────────────────────────┤
+   │                           │
+   │     Program Header        │
+   │                           │
+   │                           │
+   ├───────────────────────────┤
+   │                           │
+   │                           │
+   │      Section 1            │
+   │                           │
+   ├───────────────────────────┤
+   │      Section 2            │
+   ├───────────────────────────┤
+   │                           │
+   │      Section 3            │
+   ├───────────────────────────┤
+   │                           │
+   │                           │
+   │                           │
+   │                           │
+   │                           │
+   │      Section 4            │
+   │                           │
+   │                           │
+   │                           │
+   │                           │
+   ├───────────────────────────┤
+   │                           │
+   │                           │
+   │      Section 5            │
+   │                           │
+   │                           │
+   │                           │
+   ├───────────────────────────┤
+   │                           │
+   │                           │
+   │     Section 6             │
+   │                           │
+   │                           │
+   ├───────────────────────────┤
+   │                           │
+   │                           │
+   │     Section Header        │
+   │                           │
+   │                           │
+   └───────────────────────────┘

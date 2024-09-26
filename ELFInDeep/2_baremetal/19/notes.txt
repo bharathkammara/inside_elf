@@ -1,0 +1,14 @@
+Example of Data in RAM
+-----------------------
+
+Let's try to attempt to write a program and place the .data section in RAM
+
+Add program is modified to load two values from RAM, add them and store the result back to RAM.
+
+The two values and the space for result is placed in the .data section.
+
+
+$ arm-none-eabi-as -o add-mem.o add-mem.s
+$ arm-none-eabi-ld -T add-ld.lds -o add-mem.elf add-mem.o
+$ arm-none-eabi-nm -n add-mem.elf
+

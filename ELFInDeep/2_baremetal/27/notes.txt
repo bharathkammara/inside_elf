@@ -1,0 +1,24 @@
+Global Variables
+================
+
+When C code is compiled, the compiler places initialized global variables in the .data section
+
+So just as with the assembly, the .data has to be copied from Flash to RAM.
+
+The C language guarantees that all uninitialized global variables will be initialized to zero. 
+
+When C programs are compiled, a separate section called .bss is used for uninitialized variables. 
+
+Since the value of these variables are all zeroes to start with, they do not have to be stored in Flash. 
+
+Before transferring control to C code, the memory locations corresponding to these variables have to be initialized to zero.
+
+Read-only Data
+===============
+
+GCC places global variables marked as const in a separate section, called .rodata.
+
+The .rodata is also used for storing string constants.
+
+Since contents of .rodata section will not be modified, they can be placed in Flash. The linker script has to modified to accomodate this.
+

@@ -1,0 +1,29 @@
+Assembly Introduction
+------------------------
+
+The assembly program source file consists of a sequence of statements, one per line
+
+Each statement has the following format.
+
+label:    instruction         @ comment
+
+Each of the components is optional.
+
+label:
+
+	Label is a convenient way to refer to the location of the instruction in memory
+	Label can be used where ever an address can appear, for example as an operand of the branch instruction
+	Label name should consist of alphabets, digits, _ and $
+
+comment:
+	A comment starts with an @, and the characters that appear after an @ are ignored
+
+instruction:
+
+	The instruction could be an ARM instruction or an assembler directive.
+	Assembler directives are commands to the assembler.
+	Assembler directives always start with a . (period).
+
+Eg. 
+
+	stop:	b stop               @ Infinite loop to stop execution

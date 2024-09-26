@@ -1,0 +1,33 @@
+Section Placement
+-------------------
+
+When a program is assembled, each section is assumed to start from address 0. 
+
+And thus labels are assigned values relative to start of the section.
+
+When the final executable is created, the section is placed at some address X
+
+And all references to the labels defined within the section, are incremented by X, so that they point to the new location.
+
+The placement of each section at a particular location in memory and the patching of all references to the labels in the section, is done by the linker.
+
+The effects of section placement can be seen by looking at the symbol table of the object file and the corresponding executable file.
+
+The single file sum of array program can be used to illustrate section placement. 
+
+To make things clearer, we will place the .text section at address 0x100.
+
+$ arm-none-eabi-as -o sum.o sum.s
+$ arm-none-eabi-nm -n sum.o
+
+$ arm-none-eabi-ld -Ttext=0x100 -o sum.elf sum.o 
+$ arm-none-eabi-nm -n sum.elf
+
+The address for labels are assigned starting from 0 within a section.
+
+When the executable is created the linker is instructed to place the text section at address 0x100.
+
+	The address for labels in the .text section are re-assigned starting from 0x100, and all label references will be patched to reflect this.
+
+Refer picture
+

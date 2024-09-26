@@ -1,0 +1,38 @@
+ELF Sections
+---------------
+The code and data in an ELF binary are logically divided into contiguous non-overlapping chunks called sections.
+
+The division into sections is intended to provide a convenient organization for use by the linker
+
+When a program is compiled, different things are generated after compilation.
+
+         all binary executable code goes into the .text section,
+
+         all initialised variables are grouped in the .data section,
+
+         all uninitialised variables are grouped in the .bss section
+
+         all constant strings are grouped in .rodata section
+
+         all variable and function names go in .symtab (which is called the symbol table) and
+
+         all debug information is grouped in the .debug section.
+
+All this information is put in the section part of the ELF file.
+
+Command to view sections
+---------------------------
+
+$ readelf -S userspace
+
+$ readelf -WS userspace
+
+First entry (0th index) always stores NULL, i.e. zeroed out for historical reasons
+
+$ readelf -x .code userspace.o
+
+$ readelf -x .data userspace.o
+
+$ readelf -x .rodata userspace.o
+
+$ readelf -x .bss userspace.o

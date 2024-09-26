@@ -1,0 +1,17 @@
+Dumping compiler ABI Info
+----------------------------
+
+Every MCU Architecture has an Application Binary Interface (ABI).
+
+An ABI details things such as which registers to use for passing arguments and which ones must be preserved across function calls.
+
+Sometimes, a given architecture may have several ABI configuration options which can be selected via compiler flags. 
+
+For example or ARMV7-m, there are two different ABIs which can be used for passing floating point arguments as parameters.
+
+One which passes arguments in "VFP" registers and one which uses general purpose register.
+
+We can discover which options are used along with some other information by using readelf's -A argument
+
+$ arm-none-eabi-readelf -A <elf_file>
+

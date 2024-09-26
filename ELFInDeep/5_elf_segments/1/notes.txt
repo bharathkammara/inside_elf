@@ -1,0 +1,49 @@
+Program Header Table
+---------------------
+At the highest level, an ELF executable is roughly a container for machine code.
+
+To execute a piece of machine code, the code must be loaded into the memory.
+
+This is the job of the so-called "program header" in ELF 
+
+Program headers, also known as the program segment headers, provide information about how the segments of the executable file should be loaded into memory during the program’s execution.
+
+The program header table stores information about segments
+
+	Describe the location and size of the segments
+
+	Contains information needed by the OS to load the segments into process memory
+
+	Located after ELF Header
+
+	One header exists after each segment
+
+	Size of program header is fixed
+
+Segments
+-----------
+
+Segments break down the structure of an ELF binary into suitable chunks to prepare the executable to be loaded into memory. 
+
+	Each segment is mapped to multiple sections
+
+	Not all sections will be mapped to a segment
+
+	Not all sections will get loaded into memory
+
+An ELF file consists segments which describe how to create a process/memory image for runtime execution.
+
+
+
+Command to view segments
+-------------------------
+
+$ readelf -l <elf_file>
+
+$ reaelf --segments <elf_file>
+
+$ readelf --wide --segments <elf_file>
+
+$ readelf -a <elf_file>
+
+$ hd -n 56 -s 64 /bin/ls

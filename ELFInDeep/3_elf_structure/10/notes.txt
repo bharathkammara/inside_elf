@@ -1,0 +1,13 @@
+-nostartfiles and -nostdlib
+---------------------------
+
+You'd use -nostartfiles (and -nostdlib) when you do not want any standard libraries (like libc and libgcc) to be linked in and standard initialization actions, to be run
+
+Typical use-cases are writing system software like kernels or firmwares.
+
+$ gcc userspace.c -o userspace -nostartfiles -v
+
+$ gcc userspace.c -o userspace -nostdlib -nostartfiles -v
+
+
+

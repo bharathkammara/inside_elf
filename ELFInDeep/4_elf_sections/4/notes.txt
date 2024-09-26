@@ -1,0 +1,65 @@
+Common Sections
+-----------------
+
+.text:
+	Machine code to be loaded into memory and executed on CPU
+	Type: SHT_PROGBITS
+	Flag: SHF_EXECINSTR: the section contains executable instructions
+	      SHF_ALLOC: the contents of section are to be loaded into memory when executing the binary
+
+	$ objdump -D -s -j .text userspace.o
+
+.data:
+	Initialized data hardcoded in the executable to be loaded into memory
+	Eg: Global variable containing some text might be in this section
+	Type: SHT_PROGBITS
+	Flag: SHF_ALLOC
+	      SHF_WRITE: The section is writable at runtime
+
+	$ objdump -D -s -j .data userspace.o
+
+.bss:
+	It's common to have some allocated memory that starts out zeroed.
+	It would be a waste to include a bunch of empty butes in the ELF file, so a special segment type called BSS is used
+	It's helpful to know about BSS segments during debugging, so there's also a section header table entry that specifies the length of memory to be allocated.
+	Type: SHT_NOBITS
+	Flag: SHF_ALLOC
+	      SHF_WRITE
+
+	$ objdump -D -s -j .bss userspace3.o
+
+	The .bss has no content. It's simply a tip to the loader to preallocate some space when starting the program. 
+	It will be all 0s at the execution and won't hold any useful information until the program writes to it
+
+.rodata:
+	This is like .data except it's read-only.
+	In a very basic C program that runs printf("Hello World!"), the string "Hello World!" would be in a .rodata section.
+	Actual printing code would be in a .text section
+
+	$ objdump -D -s -j .rodata userspace4.o
+
+.shstrtab:
+	The names of sections themselves (like .text and .shstrtab) aren't included directly in the section header table.
+	Instead each entry contains an offset to a location in the ELF file that contains its name.
+	This way, each entry in the section header table can be same size making them easier to parse
+	An offset to the name is a fixed-size number, where including the name in the table would use a variable-size string.
+	All of this name data is stored in its own section called .shstrtab
+	Type: SHT_STRTAB
+
+
+Other Sections
+--------------
+
+.init : Executable code that performs initialization tasks which will be executed before the main function
+
+.fini : Code that runs after the main program completes	
+
+.interp: This section stores a string pointer to the program interpreter
+	  It is the program that is handed over the control after the loader creates a process
+	  $ readelf -p .interp userspace
+
+.plt and .got: Procedure Linkage Table (.plt) and Global Offset Table (.got) are used to implement Lazy binding
+
+Using the -s flag the objdump function prints the full contents of any sections
+
+$ objdump -s <elf_file>

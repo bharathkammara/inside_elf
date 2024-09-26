@@ -1,0 +1,19 @@
+Linker modifications for data section
+---------------------------------------
+
+RAM is volatile memory, and hence it is not possible to directly make the data available in RAM , on power up
+
+All code and data should be stored in Flash before power-up. 
+
+On power-up, a startup code is supposed to copy the data from Flash to RAM, and then proceed with the execution of the program
+
+So the program’s .data section has two addresses, a load address in Flash and a run-time address in RAM.
+
+In ld parlance, the load address is called LMA (Load Memory Address), and the run-time address is called VMA (Virtual Memory Address.).
+
+The following two modifications have to be done, to make the program work correctly.
+
+1. The linker script has to be modified to specify both the load address and the run-time address, for the .data section.
+
+2. A small piece of code should copy the .data section from Flash (load address) to RAM (run-time address).
+

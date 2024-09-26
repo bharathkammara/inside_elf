@@ -1,0 +1,21 @@
+Symbol Resolution
+-------------------
+
+In a single file program, while producing the object file, all references to labels are replaced by their corresponding addresses by the assembler.
+
+But in a multi-file program, if there are any references to labels defined in another file, the assembler marks these references as "unresolved"
+
+When these object files are passed to the linker, the linker determines the values for these references from the other object files and patches the code with the correct values.
+
+The sum of array example is split into two files to demonstrate the symbol resolution performed by the linker.
+
+The two files will be assembler and their symbol tables examined to show the presence of unresolved references
+
+.global directive
+--------------------
+
+In C, all variables declared outside functions are visible to other files, until explicitly stated as static.
+
+In assembly, all labels are static AKA local (to the file), until explicitly stated that they should be visible to other files, using the .global directive.
+~               
+A t indicates that the symbol is defined, in the text section. A u indicates that the symbol is undefined. A letter in uppercase indicates that the symbol is .global.                                 

@@ -1,0 +1,32 @@
+Generating binary file
+---------------------------
+
+The output file created by ld is in a format called ELF
+
+Various file formats are available for storing executable code.
+
+The ELF format works fine when you have an OS around
+
+Since we are going to run the program on bare metal, we will have to convert it to a simpler file format called the binary format.
+
+A file in binary format contains consecutive bytes from a specific memory address.
+
+A file in binary format contains consecutive bytes from a specific memory address.
+
+The GNU toolchain’s objcopy command can be used to convert between different object file formats
+
+A common usage of the command is given below.
+
+$ objcopy -O <output-format> <in-file> <out-file>
+
+To convert add.elf to binary format the following command can be used.
+
+$ arm-none-eabi-objcopy -O binary add.elf add.bin
+
+Check the size of the file. The file will be exactly 16 bytes
+
+Since there are 4 instructions and each instruction occupies 4 bytes.
+
+$ ls -l add.bin
+                                                                       
+~                                          

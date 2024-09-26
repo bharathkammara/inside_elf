@@ -1,0 +1,16 @@
+strip
+-------
+
+strip command discards symbols from object files
+
+This command is often used to reduce the size of the binary before shipping it to customers.
+
+Remember that it hinders the process of debugging since vital information is removed from the binary; nonetheless, the binary executes flawlessly.
+
+
+$ readelf -WS <elf>
+$ file <elf>
+$ strip <elf>
+$ readelf -WS <elf>
+$ file <elf>
+

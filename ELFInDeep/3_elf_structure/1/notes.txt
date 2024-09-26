@@ -1,0 +1,14 @@
+Structure of ELF File
+----------------------
+ELF file is divided into mainly four parts:
+
+	ELF header
+	Section header and different sections
+	Program header/segment and different segments
+	Object code
+
+Each of these elements play a different role in the linking/loading process of ELF executable
+
+Particularly, the ELF header is always available in the ELF file, while the Section header table is important during link time to create an executable.
+
+On the other hand, the Program header table is useful during runtime to help load the executable into memory.

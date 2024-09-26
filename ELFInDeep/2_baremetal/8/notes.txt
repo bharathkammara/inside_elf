@@ -1,0 +1,41 @@
+Verifying Registers in QEMU Monitor
+------------------------------------
+
+$ qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null
+
+The system executes the instructions and after completion, keeps looping infinitely in the stop: b stop instruction.
+
+To view the contents of the registers, the monitor interface of qemu can be used
+
+The monitor interface is a command line interface, through which the emulated system can be controlled and the status of the system can be viewed.
+
+To view the contents of the registers the info registers monitor command can be used.
+
+(qemu) info registers
+
+Note the value in register R02. The register contains the result of the addition and should match with the expected value of 9.
+
+More Monitor Commands
+-------------------------
+
+
+help   List available commands
+
+quit   Quits the emulator
+
+xp /fmt addr Physical memory dump from addr
+
+system_reset Reset the system.
+
+This xp command with the i format, can be used to disassemble the instructions present in memory.
+
+Syntax of fmt: <count><format><size>
+
+count: specifies number of data items to be dumped
+format: specifies display format. x -> hex, d->signed decimal, u -> unsigned decimal, o -> octal, c->char, i -> asm instructions
+size : specifies the size of each data item. b -> 8 bits, h->16 bits, w -> 32 bits, g->64 bits
+
+ 
+To disassemble the instructions located at 0x0, the xp command with the fmt specified as 4iw can be used.
+
+The 4 specifies 4 items are to be displayed, i specifies that the items are to be printed as instructions (yes, a built in disassembler!), w specifies that the items are 32 bits in size. 

@@ -1,0 +1,68 @@
+What is the use of _start in C
+------------------------------
+
+Symbol _start is the entry point of your program.
+
+main is the entry point for your program from a programmers perspective
+
+_start is the usual entry point from the OS perspective 
+
+Normally, the function with the name _start is supplied by a file called crt1.o (crt=C Runtime environment) which contains the startup code for the C runtime environment.
+
+$ nm /lib/x86_64-linux-gnu/crt1.o
+
+If a program does not want to use the C runtime environment, it needs to supply its own code for _start by passing -nostartfiles to gcc
+
+_start:  ;; Weave magic here to set up C and libc.
+    ;; Note this is example code for a mythical implementation,
+    ;; intended to show how it could work. It is not specific
+    ;; bound to any given implementation.
+    call __setup_for_c       ; Set up C environment.
+    call __libc_start_main   ; Set up standard library.
+    call _main               ; Call your main.
+    call __libc_stop_main    ; Tear down standard library.
+    call __teardown_for_c    ; Tear down C environment.
+    jmp  __exit              ; Return to OS.
+
+__libc_start_main()
+------------------------
+
+The main operations carried out by __libc_start_main() are:
+
+	Check if the effective uid == real uid (for security reasons)
+	Calls the constructors and destructors for our program
+	Calls main() with the correct arguments
+	Calls exit() with the return value of main.
+
+How do we get to _start?
+------------------------
+
+When you run a program, the shell or gui calls execve() which executes the linux system call execve().
+
+$ man execve
+
+execve implementation in kernel
+	checks like filename is valid
+	limit of launched processes is not exceed in our system etc
+	Parses our executable file which is represented in ELF format
+	creates memory descriptor for newly executed executable file
+	fills it with appropriate values like area for stack, heap and etc
+	
+When the setup of new binary image is done, the start_thread function will set up one new process.
+
+This function is architecture-specific and for the x86_64 architecture, its definition will be located in the arch/x86/kernel/process_64.c source code file.
+
+The start_thread function sets new value to segment registers and program execution address. From this point, our new process is ready to start
+
+Once the context switch will be done, control will be returned to userspace with new values of registers and the new executable will be started to execute.
+
+Try below with breakpoint at _start
+$ ls -l /proc/pid/fd
+
+$ ls -l /proc/pid/maps
+
+Loader does much work for you setting up relocations. When everything is ready, control is handled to your program by calling _start	
+
+$ ld --verbose
+
+$ ld --verbose | grep ENTRY

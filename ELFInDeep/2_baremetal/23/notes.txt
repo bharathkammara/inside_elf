@@ -1,0 +1,3 @@
+In a real system with an SDRAM, the memory should not be accessed right-away. 
+The memory controller will have to be initialised before performing a memory access. 
+Our code works because the simulated memory does not require the memory controller to be initialised.

@@ -1,0 +1,28 @@
+Note Sections
+---------------
+
+In ELF (Executable and Linkable Format) binaries, note sections are special sections that contain arbitrary information or metadata.
+
+Note sections can be used by various tools, compilers, and utilities to embed additional information into the binary. 
+
+ This information can serve various purposes, such as 
+	specifying the compiler version used to build the binary, 
+	indicating specific features or attributes, 
+	providing debugging information, or 
+	conveying other relevant data.
+
+.note.gnu.build-id: 
+	This note section contains a globally unique identifier (GUID), also known as a build ID, which uniquely identifies the build of the binary. 
+	This can be useful for distinguishing between different builds of the same binary and for ensuring consistency in build environments.
+
+.note.gnu.property: 
+	This note section contains various properties or attributes associated with the binary
+
+.note.ABI-tag: 
+	This note section contains information about the ABI (Application Binary Interface) compatibility of the binary. 
+	It specifies the ABI version and any specific requirements or features related to the ABI.
+
+
+
+
+$ readelf -n <elf>

@@ -1,0 +1,23 @@
+Section Merging
+------------------
+
+When dealing with multi-file programs, the sections with the same name (example .text) might appear in each file.
+
+The linker is responsible for merging sections from the input files into sections of the output file.
+
+By default, the sections with the same name, from each file is placed contiguously and the label references are patched to reflect the new values.
+
+The effects of section merging can be seen by looking at the symbol table of the object files and the corresponding executable file. 
+
+ The multi-file sum of array program can be used to illustrate section merging. 
+
+$ arm-none-eabi-nm main.o
+
+$ arm-none-eabi-nm sum-sub.o
+
+$ arm-none-eabi-ld -Ttext=0x0 -o sum.elf main.o sum-sub.o
+
+$ arm-none-eabi-nm sum.elf
+
+The loop symbol has address 0x4 in sum-sub.o, and 0x28 in sum.elf, since the .text section of sum-sub.o is placed right after the .text section of main.o.
+

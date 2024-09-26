@@ -1,0 +1,44 @@
+Copying .data to RAM
+======================
+
+To copy the data from Flash to RAM, the following information is required.
+
+	1.Address of data in Flash (flash_sdata)
+	2.Address of data in RAM (ram_sdata)
+	3.Size of the .data section. (data_size)
+
+With this information the data can be copied from Flash to RAM using the following code snippet.
+
+        ldr   r0, =flash_sdata
+        ldr   r1, =ram_sdata
+        ldr   r2, =data_size
+
+copy:
+        ldrb  r4, [r0], #1
+        strb  r4, [r1], #1
+        subs  r2, r2, #1
+        bne   copy
+
+The linker script can be slightly modified to provide these information.
+
+SECTIONS {
+        . = 0x00000000;
+        .text : {
+              * (.text);
+        }
+        flash_sdata = .; ❶
+
+        . = 0xA0000000;
+        ram_sdata = .; ❷
+        .data : AT (flash_sdata) {
+              * (.data);
+        };
+        ram_edata = .; ❸
+        data_size = ram_edata - ram_sdata; ❹
+}
+
+
+❶ 	Start of data in Flash is right after all the code in Flash.
+❷  	Start of data in RAM is at the base address of RAM.
+❸ ❹     Obtaining the size of data is not straight forward. The data size is calculated from the difference in the start of data in RAM and the end of data in RAM. Yes, simple expressions are allowed within the linker script.
+

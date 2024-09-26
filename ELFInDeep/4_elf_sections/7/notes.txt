@@ -1,0 +1,10 @@
+strings
+------------
+
+strings command prints the strings of printable characters in files
+
+It is often useful to add the -d flag to the strings command to show only the printable characters from the data section.
+
+$ strings -d userspace.o
+
+$ strings -d userspace

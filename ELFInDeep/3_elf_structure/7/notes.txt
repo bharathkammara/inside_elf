@@ -1,0 +1,8 @@
+e_entry field
+------------------
+
+The e_entry filed lists the offset in the file where the program should start executing.
+
+Normally it points to your _start method.
+
+You can point the e_entry anywhere you like.

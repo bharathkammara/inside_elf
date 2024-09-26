@@ -1,0 +1,29 @@
+Typical instructions of machine code
+=====================================
+
+There are many kinds of instructions found usually found in an instruction set:
+
+a) Arithmetical operations: Addition, subtraction, multiplication, division.
+b) Logical operations: Conjunction, disjunction, negation.
+c) Operations acting on single bits: Shifting bits to the left or right.
+d) Operations acting on memory: copying a value from one register to another.
+e) Operations that compare two values: bigger than, smaller than, equal.
+f) Operations that combine other operations: add, compare, and copy if equal to some value(as one operation), jump to some point in the program if a register is zero.
+g)Operations that act on program flow: jump to some address.
+h) Operations that convert data types: e.g. convert a 32-bit integer to a 64-bit integer, convert a floating point value to an integer (by truncating).
+
+Every processor or processor family has its own instruction set. 
+
+Instructions are patterns of bits that correspond to different commands that can be given to the machine. 
+
+Thus, the instruction set is specific to a class of processors using (mostly) the same architecture.
+
+Newer processor designs often include all the instructions of a predecessor and may add additional instructions.
+
+Sometimes, a newer design will discontinue or alter the meaning of an instruction code (typically because it is needed for new purposes), affecting code compatibility; even nearly completely compatible processors may show slightly different behavior for some instructions, but this is rarely a problem.
+
+Most instructions have one or more opcode fields.
+
+They specify the basic instruction type. Other fields may give the type of the operands, the addressing mode, and so on
+
+There may also be special instructions that are contained in the opcode itself. These instructions are called immediates.
